@@ -2,16 +2,31 @@ import sys
 from copy import deepcopy
 from sympy import *
 import numpy as np
-
+import doctest
 
 
 def safe_call(f, x, y, z):
-
+    """
+    >>> safe_call(f2, 0 ,0, 0)
+    0
+    >>> safe_call(f1, 1, 2, 3.0)
+    6.0
+    >>> safe_call(f1, 0, 0, 0.0)
+    0.0
+    >>> safe_call(f1, 5, 6, 7)
+    Traceback (most recent call last):
+        ...
+    Exception: invalid
+    >>> safe_call(f1, 5, 9.0, 7.0)
+    Traceback (most recent call last):
+        ...
+    Exception: invalid
+    """
     ann_x = f.__annotations__.get('x')
     ann_y = f.__annotations__.get('y')
     ann_z = f.__annotations__.get('z')
-    if ((type(x) == ann_x or ann_x == None) and (type(y) == ann_y or ann_y == None)
-            and (type(z) == ann_z or ann_z == None)):
+    if ((type(x) == ann_x or ann_x is None) and (type(y) == ann_y or ann_y is None)
+            and (type(z) == ann_z or ann_z is None)):
         return f(x, y, z)
     else:
         raise Exception("invalid")
@@ -26,6 +41,7 @@ def f2(x: int, y: int, z):
 
 
 if __name__ == "__main__":
+    doctest.testmod()
 
     try:
         print("Check 1 exception: f1(x: int, y: int, z: float)")
@@ -67,7 +83,6 @@ if __name__ == "__main__":
     print()
     print()
 
-
     try:
         print("Check 5 exception: f2(x: int, y: int, z)")
         print("Send: (f2 , 5, 6.0, 7.0)")
@@ -91,4 +106,3 @@ if __name__ == "__main__":
         print(safe_call(f2, 0, 0, 0))
     except Exception as e:
         print("valid")
-
