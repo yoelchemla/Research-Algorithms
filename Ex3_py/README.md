@@ -8,7 +8,7 @@ def longest(s: str) -> str:
     resLen = 0
 
     for i in range(len(s)):
-        # length odd
+        # run in difference of 1 step
         l, r = i, i
         while l >= 0 and r < len(s) and s[l] == s[r]:
             if (r - l + 1) > resLen:
@@ -17,7 +17,7 @@ def longest(s: str) -> str:
             l -= 1
             r += 1
 
-        # length even
+        # run step by step
         l, r = i, i + 1
         while l >= 0 and r < len(s) and s[l] == s[r]:
             if (r - l + 1) > resLen:
