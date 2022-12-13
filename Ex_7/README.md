@@ -23,3 +23,7 @@ OUTPUT:
 Notes read from left to right separated by space characters.
 Each note is composed of two characters. First the note itself: A B C D E F or G. Then its type: H for a half note or Q for a quarter note. There is no distinction between the first C and the second C (same goes for D, E, F, G).
 #### link to solution: https://www.codingame.com/ide/puzzle/music-scores 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Q1: According to this result, it can concluded that cvxpy library more fast than numpy library
