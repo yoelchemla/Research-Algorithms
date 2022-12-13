@@ -5,6 +5,7 @@ import random
 
 next_time = 0
 
+# credit: https://dev.to/kcdchennai/python-decorator-to-measure-execution-time-54hk
 
 def timer(origin_function):
     def wrapper(*args, **kwargs):
