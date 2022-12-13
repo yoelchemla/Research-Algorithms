@@ -13,7 +13,7 @@ def timer(origin_function):
         time_prev = time.time()
         answer = origin_function(*args, **kwargs)
         next_time = time.time() - time_prev  # the different
-        print(f'my_timer: {origin_function.__name__} run in: {next_time - time_prev} second')
+        print(f'my_timer: {origin_function.__name__} run in: {next_time} second')
         return answer
 
     return wrapper
