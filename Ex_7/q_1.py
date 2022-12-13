@@ -6,7 +6,7 @@ import random
 next_time = 0
 
 
-def my_timer(origin_function):
+def timer(origin_function):
     def wrapper(*args, **kwargs):
         global next_time
         next_time = 0
@@ -21,7 +21,7 @@ def my_timer(origin_function):
 
 # credit: https://github.com/erelsgl-at-ariel/research-5783/blob/main/07-python-numstack/code/1.numpy.ipynb
 # this function calculate the solution by numppy library
-@my_timer
+@timer
 def solve_by_numpy(A, B):
     """
      return: solve of matrix A*x=B
@@ -31,7 +31,7 @@ def solve_by_numpy(A, B):
 
 # this function calculate the solution by cvxpy library
 # credit: https://github.com/erelsgl-at-ariel/research-5783/blob/main/07-python-numstack/code/6.cvxpy.ipynb
-@my_timer
+@timer
 def cvxpy_solve(x, obj, con):
     """
     obj = sum of A@x-B matrix
