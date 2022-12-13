@@ -1,4 +1,4 @@
-# Music Scores
+# Music Scores (very hard)
 
 
 <img width="1347" alt="Screen Shot 2022-12-13 at 11 45 43" src="https://user-images.githubusercontent.com/74509202/207283675-a22e14b1-7382-414a-b415-84c2e590c3ff.png">
