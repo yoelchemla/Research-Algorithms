@@ -25,9 +25,7 @@ def my_timer(orig_func):
 @my_timer
 def solve_by_numpy(A, B):
     """
-     :param(1) A: matrix A
-     :param(2) B:  matrix B
-     :return: solve of matrix A*x=B
+     return: solve of matrix A*x=B
     """
     return np.linalg.solve(A, B)
 
@@ -35,14 +33,11 @@ def solve_by_numpy(A, B):
 # this function calculate the solution by cvxpy library
 # credit: https://github.com/erelsgl-at-ariel/research-5783/blob/main/07-python-numstack/code/6.cvxpy.ipynb
 @my_timer
-def cvxpy_solve(x, obj, constraints):
+def cvxpy_solve(x, obj, con):
     """
-    :param(1) x: variables
-    :param(2) obj: sum of A@y-B matrix
-    :param(3) constraints:
-    :return: answer of the problem
+    return: answer of the problem
     """
-    prob = cp.Problem(obj, constraints)
+    prob = cp.Problem(obj, con)
     prob.solve()
     return x.value
 
@@ -52,9 +47,11 @@ cvxpy_test = {}
 
 
 def generate_random_linear_equation(i):
-    global next_time
+    
     global numpy_test
     global cvxpy_test
+    global next_time
+    
     print("matrix from rank", i)
     m = n = i
     A = np.random.randint(-10, 10, (m, n))  # random numbers for the Matrix A in this range
@@ -62,11 +59,13 @@ def generate_random_linear_equation(i):
     print(f"Matrix A {m}x{n} is: \n {A} \n, Matrix B is : \n {B} \n")
     print("the solution of numpy is: ", solve_by_numpy(A, B))
     numpy_test[m] = next_time
+    
+    # init the parametrs     
     x = cp.Variable(n)
-    constraints = [A @ x == B]
+    con = [A @ x == B]
     obj = cp.Minimize(cp.sum(A @ x - B))  # calculate the sum of this linear equation
     cvxpy_test[m] = next_time
-    print("the solution of cvxpy is: ", cvxpy_solve(x, obj, constraints))
+    print("the solution of cvxpy is: ", cvxpy_solve(x, obj, con))
     print("\n")
 
 
