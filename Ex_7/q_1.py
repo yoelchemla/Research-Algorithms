@@ -47,20 +47,20 @@ cvxpy_test = {}
 
 
 def generate_random_linear_equation(i):
-    
     global numpy_test
     global cvxpy_test
     global next_time
-    
+
     print("matrix from rank", i)
     m = n = i
     A = np.random.randint(-10, 10, (m, n))  # random numbers for the Matrix A in this range
     B = np.random.randint(-100, 100, m)  # random numbers for the Vector B in this range
-    print(f"Matrix A {m}x{n} is: \n {A} \n, Matrix B is : \n {B} \n")
+    print(f"Matrix A {m}x{n} is: \n {A} \n")
+    print(f"Matrix B is : \n {B} \n")
     print("the solution of numpy is: ", solve_by_numpy(A, B))
     numpy_test[m] = next_time
-    
-    # init the parametrs     
+
+    # init the parametrs
     x = cp.Variable(n)
     con = [A @ x == B]
     obj = cp.Minimize(cp.sum(A @ x - B))  # calculate the sum of this linear equation
