@@ -1,12 +1,14 @@
+import time
 import numpy as np
 import cvxpy as cp
-import time
 import random
+
+from matplotlib import pyplot as plt
 
 next_time = 0
 
-# credit: https://dev.to/kcdchennai/python-decorator-to-measure-execution-time-54hk
 
+# credit: https://dev.to/kcdchennai/python-decorator-to-measure-execution-time-54hk
 def timer(origin_function):
     def wrapper(*args, **kwargs):
         global next_time
@@ -14,7 +16,7 @@ def timer(origin_function):
         time_prev = time.time()
         answer = origin_function(*args, **kwargs)
         next_time = time.time() - time_prev  # the different
-        print(f'my_timer: {origin_function.__name__} run in: {next_time} second')
+        print(f'timer: {origin_function.__name__} run in: {next_time} second')
         return answer
 
     return wrapper
@@ -48,7 +50,6 @@ cvxpy_test = {}
 
 
 def generate_random_linear_equation(i):
-
     global numpy_test
     global cvxpy_test
     global next_time
@@ -71,15 +72,27 @@ def generate_random_linear_equation(i):
     cvxpy solution
     """
     # init the parameters
-    x = cp.Variable(n)
-    con = [A @ x == B]
-    obj = cp.Minimize(cp.sum(A @ x - B))  # calculate the sum of this linear equation
+    x = cp.Variable(n)  # first parameter
+    con = [A @ x == B]  # second parameter
+    obj = cp.Minimize(cp.sum(A @ x - B))  # third parameter, calculate the sum of this linear equation
     cvxpy_test[m] = next_time
     print("the solution of cvxpy is: ", cvxpy_solve(x, obj, con))
     print("\n")
 
 
+# credit: https://github.com/erelsgl-at-ariel/research-5783/blob/main/07-python-numstack/code/2.matplotlib.ipynb
+def print_diagram():
+    global cvxpy_test
+    global numpy_test
+
+    plt.plot(numpy_test.keys(), numpy_test.values(), color='blue')
+    plt.plot(cvxpy_test.keys(), cvxpy_test.values(), color='green')
+    plt.show()
+    plt.show()
+
+
 if __name__ == '__main__':
+    # the user will choose the ranks of matrix
     value1 = input("Please enter the minimum rank of the matrix :\n")
     value2 = input("Please enter the maximum rank of the matrix :\n")
 
@@ -89,3 +102,4 @@ if __name__ == '__main__':
 
     for i in range(min_rank, max_rank):
         generate_random_linear_equation(i)
+    print_diagram()
