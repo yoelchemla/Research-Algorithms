@@ -27,3 +27,5 @@ Each note is composed of two characters. First the note itself: A B C D E F or G
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Q1: According to this result, it can concluded that numpy library more fast than cvxpy library
+### q2: a, b done.
+ 
